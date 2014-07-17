@@ -14,7 +14,6 @@
 
     <!-- Bootstrap -->
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-    <link href="~/BootstrapValidator/dist/css/bootstrapValidator.min.css" rel="stylesheet" />
     <link href="~/Content/login.css" rel="stylesheet" />
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -71,48 +70,9 @@
     <script src="~/Scripts/jquery-1.9.1.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="~/Scripts/bootstrap.min.js"></script>
-    <script src="~/BootstrapValidator/dist/js/bootstrapValidator.min.js"></script>
+    <script src="~/Scripts/login.js"></script>
 
     <script type="text/javascript">
-
-        function ValidarRequeridos() {
-
-            $("#btnIniciarSesion").on("click", function () {
-
-                if ($("#correoElectronico").val() == "") {
-
-                    $("#correoElectronico").addClass('error');
-                    $("#errorCorreo").show();
-                    return false;
-                }
-                else {
-                    $("#correoElectronico").removeClass('error');
-                    $("#errorCorreo").hide();
-                    if (!validateEmail($("#correoElectronico").val())) { }
-                };
-
-                if ($("#contrasena").val() == "") {
-
-                    $("#contrasena").addClass('error');
-                    $("#errorContrasena").show();
-                    return false;
-                }
-                else {
-                    $("#contrasena").removeClass('error');
-                    $("#errorContrasena").show();
-                };
-
-            });
-        };
-
-        function validateEmail(email) {
-            var emailReg = "/^([\w-\.]+@@([\w-]+\.)+[\w-]{2,4})?$/";
-            if (!emailReg.test(email)) {
-                return false;
-            } else {
-                return true;
-            }
-        }
 
         $(document).ready(function () {
             ValidarRequeridos();
