@@ -24,6 +24,7 @@ namespace DocsDigitalesApp.Controllers
             if (ModelState.IsValid)
             {
                 var usuarios = model;
+                return RedirectToAction("Index", "Home");
             }
             return View();
         }
