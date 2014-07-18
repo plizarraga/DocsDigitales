@@ -92,7 +92,7 @@
                     </div>
                 </div>
 
-                <div class="row">                   
+                <div class="row">
                     <div class="col-xs-3">
                         <span id="errorContrasenas" style="color: red; display: none;">*No coinciden sus contraseñas</span>
                     </div>
@@ -101,109 +101,174 @@
                 <!-- Button -->
                 <div class="row" style="margin-top: 5px;">
                     <div class="col-xs-3">
-                        <input id="btnCrearUsuario" name="btnCrear" class="btn btn-primary btn-block" type="submit" value="Crear" />
+                        <input id="btnCrearUsuario" name="btnCrear" class="btn btn-primary btn-block" type="button" value="Crear" />
+                        <input id="btn" name="btnCrear" class="btn btn-primary btn-block" type="button" value="Verificar Empresa" onclick="IfExistsEmpresa();" />
                     </div>
                 </div>
             </fieldset>
         }
+
+
         @Html.ActionLink("Regresar", "Login")
     </div>
     <!-- /container -->
 
     <!-- jQuery y archivos JavaScript -->
     <script src="/Scripts/jquery-1.9.1.min.js"></script>
-    <script src="~/Scripts/jquery.validate.min.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script src="/Scripts/jquery.validate.min.js"></script>
+    <script src="/Scripts/jquery.validate.unobtrusive.min.js"></script>
     <script src="/Scripts/bootstrap.min.js"></script>
 
     <script type="text/javascript">
 
         function ValidarRequeridos() {
-            $("#btnCrearUsuario").on("click", function () {
 
-                if ($("#Nombre").val() == "") {
+            var valido = false;
 
-                    $("#Nombre").addClass('error');
-                    $("#errorNombre").show();
-                    return false;
-                }
-                else {
-                    $("#Nombre").removeClass('error');
-                    $("#errorNombre").hide();
-                };
+            if ($("#Nombre").val() == "") {
 
-                if ($("#CorreoElectronico").val() == "") {
+                $("#Nombre").addClass('error');
+                $("#errorNombre").show();
+                valido = false;
+            }
+            else {
+                $("#Nombre").removeClass('error');
+                $("#errorNombre").hide();
+                valido = true;
+            };
 
-                    $("#CorreoElectronico").addClass('error');
-                    $("#errorCorreo").show();
-                    return false;
-                }
-                else {
-                    $("#correoElectronico").removeClass('error');
-                    $("#errorCorreo").hide();
-                };
+            if ($("#CorreoElectronico").val() == "") {
 
-                if ($("#RFC").val() == "") {
+                $("#CorreoElectronico").addClass('error');
+                $("#errorCorreo").show();
+                valido = false;
+            }
+            else {
+                $("#CorreoElectronico").removeClass('error');
+                $("#errorCorreo").hide();
+                valido = true;
+            };
 
-                    $("#RFC").addClass('error');
-                    $("#errorRFC").show();
-                    return false;
-                }
-                else {
-                    $("#RFC").removeClass('error');
-                    $("#errorRFC").hide();
-                };
+            if ($("#RFC").val() == "") {
 
-                if ($("#Empresa").val() == "") {
+                $("#RFC").addClass('error');
+                $("#errorRFC").show();
+                valido = false;
+            }
+            else {
+                $("#RFC").removeClass('error');
+                $("#errorRFC").hide();
+                valido = true;
+            };
 
-                    $("#Empresa").addClass('error');
-                    $("#errorEmpresa").show();
-                    return false;
-                }
-                else {
-                    $("#Empresa").removeClass('error');
-                    $("#errorEmpresa").hide();
-                };
+            if ($("#Empresa").val() == "") {
 
-                if ($("#Contrasena").val() == "") {
+                $("#Empresa").addClass('error');
+                $("#errorEmpresa").show();
+                valido = false;
+            }
+            else {
+                $("#Empresa").removeClass('error');
+                $("#errorEmpresa").hide();
+                valido = true;
+            };
 
-                    $("#Contrasena").addClass('error');
-                    $("#errorContrasena").show();
-                    return false;
-                }
-                else {
-                    $("#contrasena").removeClass('error');
-                    $("#errorContrasena").hide();
-                };
+            if ($("#Contrasena").val() == "") {
 
-                if ($("#ContrasenaConfirm").val() == "") {
+                $("#Contrasena").addClass('error');
+                $("#errorContrasena").show();
+                valido = false;
+            }
+            else {
+                $("#Contrasena").removeClass('error');
+                $("#errorContrasena").hide();
+                valido = true;
+            };
 
-                    $("#ContrasenaConfirm").addClass('error');
-                    $("#errorContrasenaConfirm").show();
-                    return false;
-                }
-                else {
-                    $("#ContrasenaConfirm").removeClass('error');
-                    $("#errorContrasenaConfirm").hide();
-                };
+            if ($("#ContrasenaConfirm").val() == "") {
 
+                $("#ContrasenaConfirm").addClass('error');
+                $("#errorContrasenaConfirm").show();
+                valido = false;
+            }
+            else {
+                $("#ContrasenaConfirm").removeClass('error');
+                $("#errorContrasenaConfirm").hide();
+                valido = true;
+            };
+
+            if ($("#Contrasena").val() != "" && $("#ContrasenaConfirm").val() != "") {
                 if ($("#Contrasena").val() !== $("#ContrasenaConfirm").val()) {
                     $("#Contrasena, #ContrasenaConfirm").addClass('error');
                     $("#Contrasena, #ContrasenaConfirm").val("");
                     $("#errorContrasenas").show();
-                    return false;
+                    valido = false;
                 }
                 else {
                     $("#Contrasena, #ContrasenaConfirm").removeClass('error');
                     $("#errorContrasenas").hide();
+                    valido = true;
                 };
+            };
 
-            });
+            return valido;
+        };
+
+        function AddUsuario() {
+            var UsuarioModel = {
+                nombre: $("#Nombre").val(),
+                CorreoElectronico: $("#CorreoElectronico").val(),
+                RFC: $("#RFC").val(),
+                Empresa: $("#Empresa").val(),
+                Contrasena: $("#Contrasena").val(),
+                ContrasenaConfirm: $("#ContrasenaConfirm").val()
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "Create",
+                contentType: "application/json;charset=UTF-8",
+                dataType: "json",
+                data: JSON.stringify({ model: UsuarioModel }),
+                success: function (msj) {
+                    console.log(msj);
+                },
+                error: function (request, error) {
+                    console.log("error");
+                    alert(request.statusText);
+                }
+            })
+        };
+
+        function IfExistsEmpresa() {
+            $.ajax({
+                type: "POST",
+                url: "IfExistEmpresa",
+                contentType: "application/json;charset=UTF-8",
+                dataType: "json",
+                data: JSON.stringify({ Nombre: $("#Empresa").val() }),
+                success: function (msj) {
+                    if (msj) {
+                        console.log("ya existe la empresa, no guardar usuario");
+                    } else {
+                        console.log("no existe la empresa, guardar el usuario");
+                        AddUsuario();
+                    };
+                },
+                error: function (request, error) {
+                    console.log("error");
+                    alert(request.statusText);
+                }
+            })
         };
 
         $(document).ready(function () {
 
-            ValidarRequeridos();
+            $("#btnCrearUsuario").on("click", function () {
+                if (ValidarRequeridos()) {
+                    IfExistsEmpresa();
+                };
+            });
 
         });
     </script>
