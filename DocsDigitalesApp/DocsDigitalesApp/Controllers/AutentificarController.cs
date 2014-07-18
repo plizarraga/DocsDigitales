@@ -46,13 +46,16 @@ namespace DocsDigitalesApp.Controllers
         // POST: /Autentificar/Create
 
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(UsuarioModel model)
         {
             try
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    var usuario = model;
+                    
+                }
+                return RedirectToAction("Index", "Home");
             }
             catch
             {

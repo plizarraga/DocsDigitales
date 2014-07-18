@@ -2,7 +2,6 @@
 
 @{
     ViewBag.Title = "Create";
-    Layout = null;  //"~/Views/Shared/_Layout.cshtml";
 }
 
 <!DOCTYPE html>
@@ -23,64 +22,191 @@
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-
 </head>
 <body>
     <div class="container">
-        <form class="form-horizontal">
+        @using (Html.BeginForm("Create", "Autentificar", FormMethod.Post,
+            htmlAttributes: new { @id = "FormCreateUser", @class = "form-horizontal" }))
+        {
+            Html.ValidationSummary(true);
+                
             <fieldset>
 
                 <!-- Form Name -->
                 <legend>Crear Usuario</legend>
 
-                <div class="row" align="center">
+                <div class="row">
                     <div class="col-xs-3">
-                        <input type="text" class="form-control" placeholder="Nombre" required>
+                        @Html.TextBoxFor(u => u.Nombre, htmlAttributes: new { @class = "form-control", @placeholder = "Nombre" })
+                        @Html.ValidationMessageFor(u => u.Nombre)
+                    </div>
+                    <div class="col-xs-3">
+                        <span id="errorNombre" style="color: red; display: none;">*Ingrese su Nombre</span>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-xs-3">
-                        <input type="email" class="form-control" placeholder="Correo Electrónico" required>
+                        @Html.TextBoxFor(u => u.CorreoElectronico, htmlAttributes: new { @class = "form-control", @placeholder = "Correo Electrónico", @type = "email" })
+                        @Html.ValidationMessageFor(u => u.CorreoElectronico)
+                    </div>
+                    <div class="col-xs-3">
+                        <span id="errorCorreo" style="color: red; display: none;">*Ingrese su Correo Electrónico</span>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-xs-3">
-                        <input type="text" class="form-control" placeholder="RFC" required>
+                        @Html.TextBoxFor(u => u.RFC, htmlAttributes: new { @class = "form-control", @placeholder = "RFC" })
+                        @Html.ValidationMessageFor(u => u.RFC)
+                    </div>
+                    <div class="col-xs-3">
+                        <span id="errorRFC" style="color: red; display: none;">*Ingrese su RFC</span>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-xs-3">
-                        <input type="text" class="form-control" placeholder="Empresa" required>
+                        @Html.TextBoxFor(u => u.Empresa, htmlAttributes: new { @class = "form-control", @placeholder = "Empresa" })
+                        @Html.ValidationMessageFor(u => u.Empresa)
+                    </div>
+                    <div class="col-xs-3">
+                        <span id="errorEmpresa" style="color: red; display: none;">*Ingrese el nombre de su empresa</span>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col-xs-3">
-                        <input type="password" class="form-control" placeholder="Contraseña" required>
+                        @Html.PasswordFor(u => u.Contrasena, htmlAttributes: new { @class = "form-control", @placeholder = "Contraseña" })
+                        @Html.ValidationMessageFor(u => u.Contrasena)
+                    </div>
+                    <div class="col-xs-3">
+                        <span id="errorContrasena" style="color: red; display: none;">*Ingrese su Contraseña</span>
                     </div>
                 </div>
-                
+
                 <div class="row">
                     <div class="col-xs-3">
-                        <input type="password" class="form-control" placeholder="Contraseña" required>
+                        @Html.PasswordFor(u => u.ContrasenaConfirm, htmlAttributes: new { @class = "form-control", @placeholder = "Confirmar Contraseña" })
+                        @Html.ValidationMessageFor(u => u.ContrasenaConfirm)
+                    </div>
+                    <div class="col-xs-3">
+                        <span id="errorContrasenaConfirm" style="color: red; display: none;">*Confirme su Contraseña</span>
                     </div>
                 </div>
-                
+
+                <div class="row">                   
+                    <div class="col-xs-3">
+                        <span id="errorContrasenas" style="color: red; display: none;">*No coinciden sus contraseñas</span>
+                    </div>
+                </div>
+
                 <!-- Button -->
-                <div class="row">
+                <div class="row" style="margin-top: 5px;">
                     <div class="col-xs-3">
-                        <button id="btnCrear" name="btnCrear" class="btn btn-primary btn-block" type="submit">Crear</button>
+                        <input id="btnCrearUsuario" name="btnCrear" class="btn btn-primary btn-block" type="submit" value="Crear" />
                     </div>
                 </div>
             </fieldset>
-        </form>
-
+        }
+        @Html.ActionLink("Regresar", "Login")
     </div>
     <!-- /container -->
 
     <!-- jQuery y archivos JavaScript -->
     <script src="/Scripts/jquery-1.9.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
     <script src="/Scripts/bootstrap.min.js"></script>
+
+    <script type="text/javascript">
+
+        function ValidarRequeridos() {
+            $("#btnCrearUsuario").on("click", function () {
+
+                if ($("#Nombre").val() == "") {
+
+                    $("#Nombre").addClass('error');
+                    $("#errorNombre").show();
+                    return false;
+                }
+                else {
+                    $("#Nombre").removeClass('error');
+                    $("#errorNombre").hide();
+                };
+
+                if ($("#CorreoElectronico").val() == "") {
+
+                    $("#CorreoElectronico").addClass('error');
+                    $("#errorCorreo").show();
+                    return false;
+                }
+                else {
+                    $("#correoElectronico").removeClass('error');
+                    $("#errorCorreo").hide();
+                };
+
+                if ($("#RFC").val() == "") {
+
+                    $("#RFC").addClass('error');
+                    $("#errorRFC").show();
+                    return false;
+                }
+                else {
+                    $("#RFC").removeClass('error');
+                    $("#errorRFC").hide();
+                };
+
+                if ($("#Empresa").val() == "") {
+
+                    $("#Empresa").addClass('error');
+                    $("#errorEmpresa").show();
+                    return false;
+                }
+                else {
+                    $("#Empresa").removeClass('error');
+                    $("#errorEmpresa").hide();
+                };
+
+                if ($("#Contrasena").val() == "") {
+
+                    $("#Contrasena").addClass('error');
+                    $("#errorContrasena").show();
+                    return false;
+                }
+                else {
+                    $("#contrasena").removeClass('error');
+                    $("#errorContrasena").hide();
+                };
+
+                if ($("#ContrasenaConfirm").val() == "") {
+
+                    $("#ContrasenaConfirm").addClass('error');
+                    $("#errorContrasenaConfirm").show();
+                    return false;
+                }
+                else {
+                    $("#ContrasenaConfirm").removeClass('error');
+                    $("#errorContrasenaConfirm").hide();
+                };
+
+                if ($("#Contrasena").val() !== $("#ContrasenaConfirm").val()) {
+                    $("#Contrasena, #ContrasenaConfirm").addClass('error');
+                    $("#Contrasena, #ContrasenaConfirm").val("");
+                    $("#errorContrasenas").show();
+                    return false;
+                }
+                else {
+                    $("#Contrasena, #ContrasenaConfirm").removeClass('error');
+                    $("#errorContrasenas").hide();
+                };
+
+            });
+        };
+
+        $(document).ready(function () {
+
+            ValidarRequeridos();
+
+        });
+    </script>
 </body>
 </html>
 

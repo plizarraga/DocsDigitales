@@ -14,19 +14,24 @@ namespace DocsDigitalesApp.Models
         [Required(ErrorMessage = "Debe capturar su nombre de Usuario")]
         public string Nombre { get; set; }
 
-        [Required(ErrorMessage = "Debe capturar su Correo electrónico")]
+        [RegularExpression(@"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$", ErrorMessage = "Por favor introduzca una dirección de correo electrónico válida")]
+        [Required(ErrorMessage = "Debe capturar su Correo Electrónico")]
+        [DataType(DataType.EmailAddress)]
         public string CorreoElectronico { get; set; }
 
         [Required(ErrorMessage = "Debe capturar su RFC")]
         public string RFC { get; set; }
 
+        [Required(ErrorMessage = "Debe ingresar el nombre de su empresa")]
+        public string Empresa { get; set; }
+
         [Required(ErrorMessage = "Debe capturar su Contraseña")]
+        [DataType(DataType.Password)]
         public string Contrasena { get; set; }
 
-        [Required(ErrorMessage = "Debe repeetir su Contraseña")]
+        [Required(ErrorMessage = "Debe capturar su Contraseña")]
+        [DataType(DataType.Password)]
         public string ContrasenaConfirm { get; set; }
-
-        public int Idempresa { get; set; }
 
         //private int _nIdUsuario;
         //private string _strNombre;
