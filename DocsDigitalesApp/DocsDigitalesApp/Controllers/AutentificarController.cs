@@ -4,34 +4,39 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using DocsDigitalesApp.Models;
+using System.Web.Security;
 
 namespace DocsDigitalesApp.Controllers
 {
     public class AutentificarController : Controller
     {
-        //
-        // GET: /Autentificar/
-
-        public ActionResult Index()
+        // Manda llamar la vista de Login para iniciar sesion
+        public ActionResult Login()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult Index(AutentificarModel model)
+        public ActionResult Login(AutentificarModel model)
         {
 
             if (ModelState.IsValid)
             {
                 var usuarios = model;
+                FormsAuthentication.SetAuthCookie(model.correoElectronico, false);
                 return RedirectToAction("Index", "Home");
             }
             return View();
         }
 
-        //
-        // GET: /Autentificar/Create
+        // Cierra la sesion
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Login", "Autentificar");
+        }
 
+        // Llama a la vista para crear un nuevo usuario
         public ActionResult Create()
         {
             return View();

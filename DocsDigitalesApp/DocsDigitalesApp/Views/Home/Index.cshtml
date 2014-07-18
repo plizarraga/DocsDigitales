@@ -1,5 +1,8 @@
 ﻿@{
     ViewBag.Title = "Index";
 }
-
+@if (Request.IsAuthenticated)
+{                
+    <a href="@Url.Action("Logout", "Autentificar")">Salir</a>
+}
 <h2>Pagina Principal</h2>

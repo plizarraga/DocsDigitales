@@ -12,9 +12,9 @@ function ValidarRequeridos() {
         else {
             $("#correoElectronico").removeClass('error');
             $("#errorCorreo").hide();
-            if (!validateEmail($("#correoElectronico").val())) { }
+            //if (!validateEmail($("#correoElectronico").val())) { console.log("error"); } else { console.log("OK") }
         };
-
+        
         if ($("#contrasena").val() == "") {
 
             $("#contrasena").addClass('error');
@@ -23,7 +23,7 @@ function ValidarRequeridos() {
         }
         else {
             $("#contrasena").removeClass('error');
-            $("#errorContrasena").show();
+            $("#errorContrasena").hide();
         };
 
     });
@@ -37,3 +37,7 @@ function validateEmail(email) {
         return true;
     }
 };
+
+$(document).ready(function () {
+    ValidarRequeridos();
+});
