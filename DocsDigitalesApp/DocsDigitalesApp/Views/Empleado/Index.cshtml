@@ -8,7 +8,7 @@
 <h2>@ViewBag.Title</h2>
 
 <p>
-    @Html.ActionLink("Crean Nuevo", "Create", null, htmlAttributes: new { @class = "btn btn_primary btn_sm" })
+    @Html.ActionLink("Crean Nuevo", "Create", null, htmlAttributes: new { @class = "btn btn-primary btn-sm", @role = "button" })
 </p>
 <table class="table table-hover">
     <tr>
@@ -45,9 +45,9 @@
             @Html.DisplayFor(modelItem => item.id_sucursal)
         </td>*@
             <td>
-                @Html.ActionLink("Edit", "Edit", null, htmlAttributes: new { id = item.id_empleado, @class = "btn btn_warning btn_sm" }) |
-            @Html.ActionLink("Details", "Details", null, htmlAttributes: new { id = item.id_empleado, @class = "btn btn_info btn_sm" }) |
-            @Html.ActionLink("Delete", "Delete", null, htmlAttributes: new { id = item.id_empleado, @class = "btn btn_danger btn_sm" })
+                @Html.ActionLink("Edit", "Edit", null, htmlAttributes: new { id = item.id_empleado, @class = "btn btn-warning btn-xs", @role = "button" }) |
+            @Html.ActionLink("Details", "Details", null, htmlAttributes: new { id = item.id_empleado, @class = "btn btn-info btn-xs", @role = "button" }) |
+            @Html.ActionLink("Delete", "Delete", null, htmlAttributes: new { id = item.id_empleado, @class = "btn btn-danger btn-xs", @role = "button" })
             </td>
         </tr>
     }
