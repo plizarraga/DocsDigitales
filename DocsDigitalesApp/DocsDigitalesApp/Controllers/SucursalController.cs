@@ -16,8 +16,9 @@ namespace DocsDigitalesApp.Controllers
         private string _conString = ConfigurationManager.ConnectionStrings["conMySQL"].ConnectionString.ToString();
 
         public ActionResult Sucursales()
-        {          
-            return View(SucursalesRepo.GetSucursales(18));
+        {
+            UsuarioViwModel usuario = UsuarioRepo.GetUsuario(User.Identity.Name);
+            return View(SucursalesRepo.GetSucursales(usuario.Id_Empresa));
         }
     }
 }

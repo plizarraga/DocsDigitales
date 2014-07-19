@@ -33,4 +33,9 @@ namespace DocsDigitalesApp.Models
         [DataType(DataType.Password)]
         public string ContrasenaConfirm { get; set; }
     }
+
+    public class UsuarioViwModel : UsuarioModel
+    {
+        public int Id_Empresa { get; set; }
+    }
 }

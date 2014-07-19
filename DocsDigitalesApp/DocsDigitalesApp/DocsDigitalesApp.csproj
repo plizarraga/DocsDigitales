@@ -136,6 +136,7 @@
     <Compile Include="Models\SucursalModel.cs" />
     <Compile Include="Models\SucursalViewModel.cs" />
     <Compile Include="Models\UsuarioModel.cs" />
+    <Compile Include="Models\UsuarioRepo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
