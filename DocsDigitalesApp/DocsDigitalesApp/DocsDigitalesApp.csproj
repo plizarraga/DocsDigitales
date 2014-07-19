@@ -126,11 +126,13 @@
     <Compile Include="Controllers\AutentificarController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SucursalController.cs" />
+    <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AutentificarModel.cs" />
     <Compile Include="Models\EmpresaModel.cs" />
+    <Compile Include="Models\SucursalesRepo.cs" />
     <Compile Include="Models\SucursalModel.cs" />
     <Compile Include="Models\SucursalViewModel.cs" />
     <Compile Include="Models\UsuarioModel.cs" />
