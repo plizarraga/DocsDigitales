@@ -1,4 +1,6 @@
 ﻿
+// Este script se utiliza en la visa de Login
+
 function ValidarRequeridos() {
 
     $("#btnIniciarSesion").on("click", function () {

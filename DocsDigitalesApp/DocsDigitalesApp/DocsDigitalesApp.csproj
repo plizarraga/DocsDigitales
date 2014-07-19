@@ -130,6 +130,8 @@
     </Compile>
     <Compile Include="Models\AutentificarModel.cs" />
     <Compile Include="Models\EmpresaModel.cs" />
+    <Compile Include="Models\SucursalModel.cs" />
+    <Compile Include="Models\SucursalViewModel.cs" />
     <Compile Include="Models\UsuarioModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -205,6 +207,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\create.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
