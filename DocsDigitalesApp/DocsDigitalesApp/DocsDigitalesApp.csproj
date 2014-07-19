@@ -247,7 +247,6 @@
     <Content Include="Views\Sucursal\Index.cshtml" />
     <Content Include="Views\Shared\_Main.cshtml" />
     <Content Include="Views\Empleado\Index.cshtml" />
-    <Content Include="Views\Autentificar\InciarSesion.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

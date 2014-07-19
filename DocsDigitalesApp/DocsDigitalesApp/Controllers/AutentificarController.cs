@@ -15,11 +15,6 @@ namespace DocsDigitalesApp.Controllers
     {
         private string _conString = ConfigurationManager.ConnectionStrings["conMySQL"].ConnectionString.ToString();
 
-        public ActionResult InciarSesion()
-        { 
-            return View();
-        }
-
         // Manda llamar la vista de Login para iniciar sesion
         public ActionResult Login()
         {
