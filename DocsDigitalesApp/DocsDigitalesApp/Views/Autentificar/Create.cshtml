@@ -123,6 +123,24 @@
     </div>
     <!-- /container -->
 
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                </div>
+                <div class="modal-body">
+                    Usuario registrado exitosamente, en unos segundos se le redigira a la pagina para que inicie sesión.
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- jQuery y archivos JavaScript -->
     <script src="/Scripts/jquery-1.9.1.min.js"></script>
     <script src="/Scripts/bootstrap.min.js"></script>
@@ -241,10 +259,8 @@
                 success: function (msj) {
                     console.log(msj);
                     if (msj.respuesta != "") {
-                        //msjAlerta("alert-success", "Usuario registrado exitosamente, favor de iniciar sesión.", true);
-                        //$("#myModal").modal("show");
-                        alert("Usuario registrado exitosamente, favor de iniciar sesión.");
-                        window.open('Login', '_self', false)
+                        $("#myModal").modal("show");
+                        setTimeout(function () { window.open('Login', '_self', false) }, 7000);
                     }
                 },
                 error: function (request, error) {
