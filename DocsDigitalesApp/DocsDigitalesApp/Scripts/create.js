@@ -141,7 +141,7 @@ function IfExistsEmpresa() {
 
                 msjAlerta("alert-danger", msjEmpresa + msjCorreo, true);
             } else {
-                //AddUsuario();
+                AddUsuario();
                 console.log("insertar usuario y empresa");
             };
         },

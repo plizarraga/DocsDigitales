@@ -1,11 +1,12 @@
 ﻿@model DocsDigitalesApp.Models.UsuarioModel
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Crear Usuario";
 }
 
 <!DOCTYPE html>
-<html lang="en">
+
+<html>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -25,103 +26,74 @@
     <![endif]-->
 </head>
 <body>
-    <div class="container">
-
-        @using (Html.BeginForm("Create", "Autentificar", FormMethod.Post,
-            htmlAttributes: new { @id = "FormCreateUser", @class = "form-horizontal" }))
-        {
-            Html.ValidationSummary(true);
-                
-            <fieldset>
-
-                <!-- Form Name -->
-                <legend>Crear Usuario</legend>
-
-                <div id="msjAlerta" class="alert" role="alert" style="display: none;"></div>
-
-                <div class="row">
-                    <div class="col-xs-3">
-                        @Html.TextBoxFor(u => u.Nombre, htmlAttributes: new { @class = "form-control", @placeholder = "Nombre" })
-                        @Html.ValidationMessageFor(u => u.Nombre)
-                    </div>
-                    <div class="col-xs-3">
-                        <span id="errorNombre" style="color: red; display: none;">*Ingrese su Nombre</span>
-                    </div>
+    <!--login modal-->
+    <div id="loginModal" class="modal show" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="text-center">Crear Usuario</h1>
                 </div>
-                <div class="row">
-                    <div class="col-xs-3">
-                        @Html.TextBoxFor(u => u.CorreoElectronico, htmlAttributes: new { @class = "form-control", @placeholder = "Correo Electrónico", @type = "email" })
-                        @Html.ValidationMessageFor(u => u.CorreoElectronico)
-                    </div>
-                    <div class="col-xs-3">
-                        <span id="errorCorreo" style="color: red; display: none;">*Ingrese su Correo Electrónico</span>
-                    </div>
+                <div class="modal-body">
+                    @using (Html.BeginForm("Create", "Autentificar", FormMethod.Post, htmlAttributes: new { @id = "FormCreateUser", @class = "form col-md-12 center-block" }))
+                    { 
+                        <div class="form-group">
+                            <div id="msjAlerta" class="alert" role="alert" style="display: none;"></div>
+                        </div>
+                        <div class="form-group">
+                            @Html.TextBoxFor(u => u.Nombre, htmlAttributes: new { @class = "form-control", @placeholder = "Nombre" })
+                            @Html.ValidationMessageFor(u => u.Nombre)
+                            <span id="errorNombre" style="color: red; display: none;">*Ingrese su Nombre</span>
+                        </div>
+                        
+                        <div class="form-group">
+                            @Html.TextBoxFor(u => u.CorreoElectronico, htmlAttributes: new { @class = "form-control", @placeholder = "Correo Electrónico", @type = "email" })
+                            @Html.ValidationMessageFor(u => u.CorreoElectronico)
+                            <span id="errorCorreo" style="color: red; display: none;">*Ingrese su Correo Electrónico</span>
+                        </div>
+                        
+                        
+                        <div class="form-group">
+                            @Html.TextBoxFor(u => u.RFC, htmlAttributes: new { @class = "form-control", @placeholder = "RFC" })
+                            @Html.ValidationMessageFor(u => u.RFC)
+                            <span id="errorRFC" style="color: red; display: none;">*Ingrese su RFC</span>
+                        </div>
+                        
+                        <div class="form-group">
+                            @Html.TextBoxFor(u => u.Empresa, htmlAttributes: new { @class = "form-control", @placeholder = "Empresa" })
+                            @Html.ValidationMessageFor(u => u.Empresa)
+                            <span id="errorEmpresa" style="color: red; display: none;">*Ingrese el nombre de su empresa</span>
+                        </div>
+                        
+                        <div class="form-group">
+                            @Html.PasswordFor(u => u.Contrasena, htmlAttributes: new { @class = "form-control", @placeholder = "Contraseña" })
+                            @Html.ValidationMessageFor(u => u.Contrasena)
+                            <span id="errorContrasena" style="color: red; display: none;">*Ingrese su Contraseña</span>
+                        </div>
+                        
+                        <div class="form-group">
+                            @Html.PasswordFor(u => u.ContrasenaConfirm, htmlAttributes: new { @class = "form-control", @placeholder = "Confirmar Contraseña" })
+                            @Html.ValidationMessageFor(u => u.ContrasenaConfirm)
+                            <span id="errorContrasenaConfirm" style="color: red; display: none;">*Confirme su Contraseña</span>
+                        </div>
+                        
+                        <div class="form-group">
+                            <button id="btnCrearUsuario" name="btnCrear" type="button" class="btn btn-primary btn-lg btn-block">Crear Usuario</button>
+                        </div>
+                        <div class="modal-footer">
+                            @Html.ActionLink("Regresar", "Login", null, htmlAttributes: new { @class = "btn btn-default btn-sm", @role = "button" })
+                        </div>
+                        
+                        if (TempData["Error"] != null)
+                        {
+                        <label style="color: red;">@TempData["Error"]</label> 
+                        }
+                    }
                 </div>
-                <div class="row">
-                    <div class="col-xs-3">
-                        @Html.TextBoxFor(u => u.RFC, htmlAttributes: new { @class = "form-control", @placeholder = "RFC" })
-                        @Html.ValidationMessageFor(u => u.RFC)
-                    </div>
-                    <div class="col-xs-3">
-                        <span id="errorRFC" style="color: red; display: none;">*Ingrese su RFC</span>
-                    </div>
+                <div class="modal-footer">
                 </div>
-                <div class="row">
-                    <div class="col-xs-3">
-                        @Html.TextBoxFor(u => u.Empresa, htmlAttributes: new { @class = "form-control", @placeholder = "Empresa" })
-                        @Html.ValidationMessageFor(u => u.Empresa)
-                    </div>
-                    <div class="col-xs-3">
-                        <span id="errorEmpresa" style="color: red; display: none;">*Ingrese el nombre de su empresa</span>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-xs-3">
-                        @Html.PasswordFor(u => u.Contrasena, htmlAttributes: new { @class = "form-control", @placeholder = "Contraseña" })
-                        @Html.ValidationMessageFor(u => u.Contrasena)
-                    </div>
-                    <div class="col-xs-3">
-                        <span id="errorContrasena" style="color: red; display: none;">*Ingrese su Contraseña</span>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-xs-3">
-                        @Html.PasswordFor(u => u.ContrasenaConfirm, htmlAttributes: new { @class = "form-control", @placeholder = "Confirmar Contraseña" })
-                        @Html.ValidationMessageFor(u => u.ContrasenaConfirm)
-                    </div>
-                    <div class="col-xs-3">
-                        <span id="errorContrasenaConfirm" style="color: red; display: none;">*Confirme su Contraseña</span>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-xs-3">
-                        <span id="errorContrasenas" style="color: red; display: none;">*No coinciden sus contraseñas</span>
-                    </div>
-                </div>
-
-                <!-- Button -->
-                <div class="row" style="margin-top: 5px;">
-                    <div class="col-xs-3">
-                        <input id="btnCrearUsuario" name="btnCrear" class="btn btn-primary btn-block" type="button" value="Crear" />
-                    </div>
-                </div>
-
-            </fieldset>
-            
-            if (TempData["Error"] != null)
-            {
-            <label style="color: red;">@TempData["Error"]</label>
-            }
-        }
-
-
-        @Html.ActionLink("Regresar", "Login")
-
+            </div>
+        </div>
     </div>
-    <!-- /container -->
 
     <!-- Modal -->
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -147,5 +119,3 @@
     <script src="/Scripts/create.js"></script>
 </body>
 </html>
-
-
