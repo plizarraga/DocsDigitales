@@ -8,80 +8,128 @@
 <h2>@ViewBag.Title</h2>
 
 <p>
-    @Html.ActionLink("Crean Nuevo", "Create", null, htmlAttributes: new { @class = "btn btn-primary btn-sm", @role = "button" })
+    <!-- Button trigger modal -->
+    <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#frmNuevaSucursal">
+        Crear Nueva
+    </button>
+    @*@Html.ActionLink("Crear Nueva", "Create", null, htmlAttributes: new { @class = "btn btn-primary btn-sm", @role = "button" })*@
 </p>
-<table class="table table-hover">
-    <tr>
+<div class="table-responsive">
+    <table class="table table-hover">
+        <tr>
 
-        @*            <th>
+            @*            <th>
                 @Html.DisplayNameFor(model => model.id_sucursal)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.id_empresa)
             </th>*@
-        <th>Nombre
-        </th>
-        <th>Calle
-        </th>
-        <th>Colonia
-        </th>
-        <th>Num. Ext.
-        </th>
-        <th>Num. Int.
-        </th>
-        <th>CP
-        </th>
-        <th>Ciudad
-        </th>
-        <th>Pais
-        </th>
-        <th>Total Empleados
-        </th>
-    </tr>
+            <th>Nombre
+            </th>
+            <th>Calle
+            </th>
+            <th>Colonia
+            </th>
+            <th>Num. Ext.
+            </th>
+            <th>Num. Int.
+            </th>
+            <th>CP
+            </th>
+            <th>Ciudad
+            </th>
+            <th>Pais
+            </th>
+            <th>Total Empleados
+            </th>
+        </tr>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            @*                <td>
+        @foreach (var item in Model)
+        {
+            <tr>
+                @*                <td>
                     @Html.DisplayFor(modelItem => item.id_sucursal)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.id_empresa)
                 </td>*@
-            <td>
-                @Html.DisplayFor(modelItem => item.nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.calle)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.colonia)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.num_ext)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.num_int)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.codigo_postal)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ciudad)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.pais)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.no_empleados)
-            </td>
-            @*                <td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.calle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.colonia)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.num_ext)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.num_int)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.codigo_postal)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ciudad)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.pais)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.no_empleados)
+                </td>
+                @*                <td>
                     @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
                 </td>*@
-        </tr>
-    }
+            </tr>
+        }
 
-</table>
+    </table>
+</div>
+
+<!-- Modal Nueva Sucursal-->
+<div class="modal fade" id="frmNuevaSucursal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">Nueva Sucursal</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Nombre">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" placeholder="Calle">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Colonia">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Número Exterior">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Número Interior">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" placeholder="Código Postal">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Ciudad">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control " placeholder="País">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
 

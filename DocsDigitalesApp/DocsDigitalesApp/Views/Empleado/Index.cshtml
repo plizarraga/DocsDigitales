@@ -8,48 +8,87 @@
 <h2>@ViewBag.Title</h2>
 
 <p>
-    @Html.ActionLink("Crean Nuevo", "Create", null, htmlAttributes: new { @class = "btn btn-primary btn-sm", @role = "button" })
+    <!-- Boton que manda llamar la forma de nuevo empleado -->
+    <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#frmNuevoEmpleado">
+        Crear Nuevo
+    </button>
+    @* @Html.ActionLink("Crear Nuevo", "Create", null, htmlAttributes: new { @class = "btn btn-primary btn-sm", @role = "button" })*@
 </p>
-<table class="table table-hover">
-    <tr>
-        <th>Nombre
-        </th>
-        <th>RFC
-        </th>
-        <th>Puesto
-        </th>
-        <th>Sucursal
-        </th>
-        @*        <th>
+<div class="table-responsive">
+    <table class="table table-hover">
+        <tr>
+            <th>Nombre
+            </th>
+            <th>RFC
+            </th>
+            <th>Puesto
+            </th>
+            <th>Sucursal
+            </th>
+            @*        <th>
             @Html.DisplayNameFor(model => model.id_sucursal)
         </th>*@
-        <th></th>
-    </tr>
+            <th></th>
+        </tr>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.rfc)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.puesto)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.sucursal)
-            </td>
-            @*        <td>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.rfc)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.puesto)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.sucursal)
+                </td>
+                @*        <td>
             @Html.DisplayFor(modelItem => item.id_sucursal)
         </td>*@
-            <td>
-                @Html.ActionLink("Edit", "Edit", null, htmlAttributes: new { id = item.id_empleado, @class = "btn btn-warning btn-xs", @role = "button" }) |
-            @Html.ActionLink("Details", "Details", null, htmlAttributes: new { id = item.id_empleado, @class = "btn btn-info btn-xs", @role = "button" }) |
-            @Html.ActionLink("Delete", "Delete", null, htmlAttributes: new { id = item.id_empleado, @class = "btn btn-danger btn-xs", @role = "button" })
-            </td>
-        </tr>
-    }
+                <td>
+                    @Html.ActionLink("Editar", "Edit", null, htmlAttributes: new { id = item.id_empleado, @class = "btn btn-warning btn-xs", @role = "button" }) |
+            @Html.ActionLink("Detalle", "Details", null, htmlAttributes: new { id = item.id_empleado, @class = "btn btn-info btn-xs", @role = "button" }) |
+            @Html.ActionLink("Eliminar", "Delete", null, htmlAttributes: new { id = item.id_empleado, @class = "btn btn-danger btn-xs", @role = "button" })
+                </td>
+            </tr>
+        }
 
-</table>
+    </table>
+</div>
+
+
+<!-- Modal Nuevo Empleado-->
+<div class="modal fade" id="frmNuevoEmpleado" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">Nuevo Empleado</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Nombre">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control" placeholder="RFC">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Puesto">
+                </div>
+                <div class="form-group">
+                    <select class="form-control">
+                        <option>-- SELECCIONAR SUCURSAL --</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
