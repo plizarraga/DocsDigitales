@@ -14,6 +14,7 @@
 
     <!-- Estilos y Bootstrap -->
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-theme.min.css" rel="stylesheet" />
     <link href="~/Content/login.css" rel="stylesheet" />
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -25,6 +26,7 @@
 </head>
 <body>
     <div class="container">
+
         @using (Html.BeginForm("Create", "Autentificar", FormMethod.Post,
             htmlAttributes: new { @id = "FormCreateUser", @class = "form-horizontal" }))
         {
@@ -34,6 +36,8 @@
 
                 <!-- Form Name -->
                 <legend>Crear Usuario</legend>
+
+                <div id="msjAlerta" class="alert" role="alert" style="display: none;"></div>
 
                 <div class="row">
                     <div class="col-xs-3">
@@ -102,21 +106,25 @@
                 <div class="row" style="margin-top: 5px;">
                     <div class="col-xs-3">
                         <input id="btnCrearUsuario" name="btnCrear" class="btn btn-primary btn-block" type="button" value="Crear" />
-                        <input id="btn" name="btnCrear" class="btn btn-primary btn-block" type="button" value="Verificar Empresa" onclick="IfExistsEmpresa();" />
                     </div>
                 </div>
+
             </fieldset>
+            
+            if (TempData["Error"] != null)
+            {
+            <label style="color: red;">@TempData["Error"]</label>
+            }
         }
 
 
         @Html.ActionLink("Regresar", "Login")
+
     </div>
     <!-- /container -->
 
     <!-- jQuery y archivos JavaScript -->
     <script src="/Scripts/jquery-1.9.1.min.js"></script>
-    <script src="/Scripts/jquery.validate.min.js"></script>
-    <script src="/Scripts/jquery.validate.unobtrusive.min.js"></script>
     <script src="/Scripts/bootstrap.min.js"></script>
 
     <script type="text/javascript">
@@ -232,6 +240,12 @@
                 data: JSON.stringify({ model: UsuarioModel }),
                 success: function (msj) {
                     console.log(msj);
+                    if (msj.respuesta != "") {
+                        //msjAlerta("alert-success", "Usuario registrado exitosamente, favor de iniciar sesión.", true);
+                        //$("#myModal").modal("show");
+                        alert("Usuario registrado exitosamente, favor de iniciar sesión.");
+                        window.open('Login', '_self', false)
+                    }
                 },
                 error: function (request, error) {
                     console.log("error");
@@ -240,6 +254,7 @@
             })
         };
 
+        // Si la empresa no se encuentra registrada procede a insertar el usuario y la nueva empresa.
         function IfExistsEmpresa() {
             $.ajax({
                 type: "POST",
@@ -249,9 +264,8 @@
                 data: JSON.stringify({ Nombre: $("#Empresa").val() }),
                 success: function (msj) {
                     if (msj) {
-                        console.log("ya existe la empresa, no guardar usuario");
+                        msjAlerta("alert-danger", "Ya existe una empresa registrada con el nombre: " + $("#Empresa").val(), true);
                     } else {
-                        console.log("no existe la empresa, guardar el usuario");
                         AddUsuario();
                     };
                 },
@@ -260,6 +274,20 @@
                     alert(request.statusText);
                 }
             })
+        };
+
+        function msjAlerta(tipo, mensaje, visible) {
+            var $msjAlerta = $("#msjAlerta");
+
+            if (visible) {
+                $msjAlerta.html(mensaje);
+                $msjAlerta.toggleClass(tipo);
+                $msjAlerta.show();
+            }
+            else {
+                $msjAlerta.hide();
+                $msjAlerta.html("");
+            }
         };
 
         $(document).ready(function () {

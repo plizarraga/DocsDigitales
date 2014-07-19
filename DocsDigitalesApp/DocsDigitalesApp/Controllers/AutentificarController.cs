@@ -7,6 +7,7 @@ using DocsDigitalesApp.Models;
 using System.Web.Security;
 using MySql.Data.MySqlClient;
 using System.Configuration;
+using System.Data;
 
 namespace DocsDigitalesApp.Controllers
 {
@@ -20,17 +21,64 @@ namespace DocsDigitalesApp.Controllers
             return View();
         }
 
+        // Iniciar sesión
         [HttpPost]
         public ActionResult Login(AutentificarModel model)
         {
 
             if (ModelState.IsValid)
             {
-                var usuarios = model;
-                FormsAuthentication.SetAuthCookie(model.correoElectronico, false);
-                return RedirectToAction("Index", "Home");
+                try
+                {
+
+                    if (IsValidUser(model.correoElectronico.Trim(), model.contrasena.Trim()))
+                    {
+                        FormsAuthentication.SetAuthCookie(model.correoElectronico, false);
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        TempData["Error"] = "* Usuario o Contraseña incorrectos...!";
+                    }
+                }
+                catch (Exception e)
+                {
+                    TempData["Error"] = "* Ocurrio un error al iniciar sesión: " + e.Message.ToString();
+                }
+
             }
             return View();
+        }
+
+        public bool IsValidUser(string correo_electronico, string contrasena)
+        {
+            bool bValido = false;
+
+            using (MySqlConnection cn = new MySqlConnection(_conString))
+            {
+                MySqlCommand cmd = new MySqlCommand("SP_LOGIN", cn);
+                cmd.CommandType = System.Data.CommandType.StoredProcedure;
+
+                cmd.Parameters.AddWithValue("pi_correo_electronico", correo_electronico);
+                cmd.Parameters.AddWithValue("pi_contrasena", contrasena);
+
+                cn.Open();
+
+                using (var reader = cmd.ExecuteReader(CommandBehavior.SingleRow))
+                {
+                    if (reader.HasRows)
+                    {
+                        bValido = true;
+                        int idUser = reader.GetOrdinal("id_usuario");
+
+                        while (reader.Read())
+                        {
+                            HttpContext.Session["gn_id_usuario"] = reader.GetInt32(idUser);
+                        }
+                    }
+                }
+                return bValido;
+            }
         }
 
         // Cierra la sesion
@@ -46,9 +94,7 @@ namespace DocsDigitalesApp.Controllers
             return View();
         }
 
-        //
-        // POST: /Autentificar/Create
-
+        // Insertar el usuario y la empresa.
         [HttpPost]
         public JsonResult Create(UsuarioModel model)
         {
@@ -70,7 +116,7 @@ namespace DocsDigitalesApp.Controllers
                     cmd.ExecuteScalar();
                     cn.Close();
                     return Json(new { respuesta = "Se registro el usuario y la empresa", error = "" });
-                }               
+                }
             }
             else
             {
