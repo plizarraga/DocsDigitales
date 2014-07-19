@@ -125,6 +125,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AutentificarController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\SucursalController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -204,6 +205,8 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <None Include="Scripts\jquery-1.9.1.intellisense.js" />
+    <Content Include="imagenes\docdigitales-02.png" />
+    <Content Include="imagenes\logodoc.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -236,6 +239,8 @@
     <Content Include="Views\Autentificar\Login.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Autentificar\Create.cshtml" />
+    <Content Include="Views\Sucursal\Sucursales.cshtml" />
+    <Content Include="Views\Shared\_Main.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

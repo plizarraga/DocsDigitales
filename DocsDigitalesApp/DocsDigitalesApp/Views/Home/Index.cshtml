@@ -1,9 +1,53 @@
 ﻿@{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Inicio";
+    Layout = "~/Views/Shared/_Main.cshtml";
 }
-@if (Request.IsAuthenticated)
-{   
-                
-    <a href="@Url.Action("Logout", "Autentificar")">@Html.Encode(User.Identity.Name) (Salir)</a>
-}
-<h2>Pagina Principal</h2>
+
+<!-- Main component for a primary marketing message or call to action -->
+<div class="jumbotron">
+    <div style="float: left; margin-right: 130px;">
+        <h2>Facturación Electrónica
+        </h2>
+        <h3>Unete a más de 100 mil personas que usan
+                <br />
+            el sistema más amigable del mercado.
+        </h3>
+        <br />
+        <h4>+ Facturación electrónica<br />
+            + Nóminas<br />
+            + Cotizaciones<br />
+            + Gastos
+        </h4>
+        <a class="btn btn-lg btn-primary" href="#" role="button">Pruebalo Gratis 30 Días &raquo;</a>
+    </div>
+
+    <img src="/imagenes/docdigitales-02.png" />
+
+</div>
+
+<!-- /container -->
+
+<div class="container">
+    <!-- Example row of columns -->
+    <div class="row">
+        <div class="col-md-4">
+            <h2>Fácil de usar</h2>
+            <p>Documentos Digitales es intuitivo y sencillo de utilizar. Además, si tienes cualquier duda puedes hablar de 7:30 a 5:00 pm TP de Lunes a Viernes para hablar con un asesor.</p>
+        </div>
+        <div class="col-md-4">
+            <h2>Desde cualquier lugar</h2>
+            <p>El acceso al sistema puede ser desde cualquier computadora o teléfono móvil. Tu información siempre estará resguardada y segura.</p>
+        </div>
+        <div class="col-md-4">
+            <h2>Ahorra tiempo y dinero</h2>
+            <p>Vuelve más eficiente y organizado tu negocio. Factura rápidamente, lleva tu cobranza y organiza tus gastos desde un mismo lugar.</p>
+        </div>
+    </div>
+
+    <hr>
+
+    <footer>
+        <p>&copy; Documentos Digitales 2014</p>
+    </footer>
+</div>
+<!-- /container -->
