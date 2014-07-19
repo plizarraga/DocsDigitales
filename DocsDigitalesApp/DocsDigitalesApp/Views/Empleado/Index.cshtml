@@ -1,0 +1,55 @@
+﻿@model IEnumerable<DocsDigitalesApp.Models.EmpleadoViewModel>
+
+@{
+    ViewBag.Title = "Empleados";
+    Layout = "~/Views/Shared/_Main.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    @Html.ActionLink("Crean Nuevo", "Create", null, htmlAttributes: new { @class = "btn btn_primary btn_sm" })
+</p>
+<table class="table table-hover">
+    <tr>
+        <th>Nombre
+        </th>
+        <th>RFC
+        </th>
+        <th>Puesto
+        </th>
+        <th>Sucursal
+        </th>
+        @*        <th>
+            @Html.DisplayNameFor(model => model.id_sucursal)
+        </th>*@
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.rfc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.puesto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.sucursal)
+            </td>
+            @*        <td>
+            @Html.DisplayFor(modelItem => item.id_sucursal)
+        </td>*@
+            <td>
+                @Html.ActionLink("Edit", "Edit", null, htmlAttributes: new { id = item.id_empleado, @class = "btn btn_warning btn_sm" }) |
+            @Html.ActionLink("Details", "Details", null, htmlAttributes: new { id = item.id_empleado, @class = "btn btn_info btn_sm" }) |
+            @Html.ActionLink("Delete", "Delete", null, htmlAttributes: new { id = item.id_empleado, @class = "btn btn_danger btn_sm" })
+            </td>
+        </tr>
+    }
+
+</table>

@@ -124,13 +124,15 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AutentificarController.cs" />
+    <Compile Include="Controllers\EmpleadoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SucursalController.cs" />
-    <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AutentificarModel.cs" />
+    <Compile Include="Models\EmpleadoModel.cs" />
+    <Compile Include="Models\EmpleadoRepo.cs" />
     <Compile Include="Models\EmpresaModel.cs" />
     <Compile Include="Models\SucursalesRepo.cs" />
     <Compile Include="Models\SucursalModel.cs" />
@@ -242,8 +244,9 @@
     <Content Include="Views\Autentificar\Login.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Autentificar\Create.cshtml" />
-    <Content Include="Views\Sucursal\Sucursales.cshtml" />
+    <Content Include="Views\Sucursal\Index.cshtml" />
     <Content Include="Views\Shared\_Main.cshtml" />
+    <Content Include="Views\Empleado\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

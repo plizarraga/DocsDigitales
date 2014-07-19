@@ -9,9 +9,7 @@ namespace DocsDigitalesApp.Controllers
     [Authorize]
     public class HomeController : Controller
     {
-        //
-        // GET: /Home/
-
+        // Manda llamar a la vista de Pagina de Inicio
         public ActionResult Index()
         {
             return View();

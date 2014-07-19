@@ -36,6 +36,6 @@
 \\psf\Home\Documents\GitHub\DocsDigitales\DocsDigitalesApp\DocsDigitalesApp\bin\es\System.Web.WebPages.resources.dll
 \\psf\Home\Documents\GitHub\DocsDigitales\DocsDigitalesApp\DocsDigitalesApp\bin\es\System.Web.WebPages.Deployment.resources.dll
 \\psf\Home\Documents\GitHub\DocsDigitales\DocsDigitalesApp\DocsDigitalesApp\bin\es\System.Web.WebPages.Razor.resources.dll
-\\psf\Home\Documents\GitHub\DocsDigitales\DocsDigitalesApp\DocsDigitalesApp\obj\Debug\DocsDigitalesApp.csprojResolveAssemblyReference.cache
 \\psf\Home\Documents\GitHub\DocsDigitales\DocsDigitalesApp\DocsDigitalesApp\obj\Debug\DocsDigitalesApp.dll
 \\psf\Home\Documents\GitHub\DocsDigitales\DocsDigitalesApp\DocsDigitalesApp\obj\Debug\DocsDigitalesApp.pdb
+\\psf\Home\Documents\GitHub\DocsDigitales\DocsDigitalesApp\DocsDigitalesApp\obj\Debug\DocsDigitalesApp.csprojResolveAssemblyReference.cache

@@ -49,6 +49,7 @@ namespace DocsDigitalesApp.Controllers
             return View();
         }
 
+        // Revisa si el usuario y contraseña son correctos para iniciar sesion
         public bool IsValidUser(string correo_electronico, string contrasena)
         {
             bool bValido = false;

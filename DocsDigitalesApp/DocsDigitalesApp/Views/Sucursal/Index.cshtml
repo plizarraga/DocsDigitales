@@ -1,0 +1,87 @@
+﻿@model IEnumerable<DocsDigitalesApp.Models.SucursalViewModel>
+
+@{
+    Layout = "~/Views/Shared/_Main.cshtml";
+    ViewBag.Title = "Sucursales";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    @Html.ActionLink("Crean Nuevo", "Create", new { @class = "btn bt_primary btn_sm" })
+</p>
+<table class="table table-hover">
+    <tr>
+
+        @*            <th>
+                @Html.DisplayNameFor(model => model.id_sucursal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.id_empresa)
+            </th>*@
+        <th>Nombre
+        </th>
+        <th>Calle
+        </th>
+        <th>Colonia
+        </th>
+        <th>Num. Ext.
+        </th>
+        <th>Num. Int.
+        </th>
+        <th>CP
+        </th>
+        <th>Ciudad
+        </th>
+        <th>Pais
+        </th>
+        <th>Total Empleados
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            @*                <td>
+                    @Html.DisplayFor(modelItem => item.id_sucursal)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.id_empresa)
+                </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.calle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.colonia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.num_ext)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.num_int)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.codigo_postal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ciudad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.pais)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.no_empleados)
+            </td>
+            @*                <td>
+                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                </td>*@
+        </tr>
+    }
+
+</table>
+

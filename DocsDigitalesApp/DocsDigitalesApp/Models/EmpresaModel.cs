@@ -13,19 +13,5 @@ namespace DocsDigitalesApp.Models
 
         [Required(ErrorMessage = "Debe capturar el nombre de la empresa")]
         public string Nombre { get; set; }
-
-        //private int _nIdEmpresa;
-        //private string _strNombre;
-
-        //public int nIdEmpresa
-        //{
-        //    get { return _nIdEmpresa; }
-        //    set { _nIdEmpresa = value; }
-        //}
-        //public string strNombre
-        //{
-        //    get { return _strNombre; }
-        //    set { _strNombre = value; }
-        //}
     }
 }
