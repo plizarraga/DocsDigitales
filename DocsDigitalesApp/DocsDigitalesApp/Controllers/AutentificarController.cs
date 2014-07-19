@@ -20,12 +20,11 @@ namespace DocsDigitalesApp.Controllers
         {
             return View();
         }
-
+        
         // Iniciar sesión
         [HttpPost]
         public ActionResult Login(AutentificarModel model)
         {
-
             if (ModelState.IsValid)
             {
                 try
@@ -80,10 +79,10 @@ namespace DocsDigitalesApp.Controllers
                 return bValido;
             }
         }
-
+        
         // Cierra la sesion
         public ActionResult Logout()
-        {
+        {                    
             FormsAuthentication.SignOut();
             return RedirectToAction("Login", "Autentificar");
         }
@@ -125,21 +124,31 @@ namespace DocsDigitalesApp.Controllers
 
         }
 
-        // Verificar si existe la empresa
+        // Verificar si existe la empresa y el correo electronico
         [HttpPost]
-        public int IfExistEmpresa(string Nombre)
+        public JsonResult IfExistEmpresaCorreo(string NombreEmpresa, string CorreoElectronico)
         {
             using (MySqlConnection cn = new MySqlConnection(_conString))
             {
+                // Verificar si existe la empresa
                 var cmd = new MySqlCommand("SP_SEL_EMPRESA_POR_NOMBRE", cn);
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("pi_nombre", Nombre);
+                cmd.Parameters.AddWithValue("pi_nombre", NombreEmpresa);
                 cn.Open();
 
-                int Found = Convert.ToInt32(cmd.ExecuteScalar());
+                int FoundEmpresa = Convert.ToInt32(cmd.ExecuteScalar());
+
+                // Verificar si existe el Correo electronico
+                cmd.Parameters.Clear();
+                cmd.CommandText = "SP_SEL_USUARIOS_CORREO";
+                cmd.Parameters.AddWithValue("pi_correo_electronico", CorreoElectronico);
+
+                int FoundCorreoElectronico = Convert.ToInt32(cmd.ExecuteScalar());
                 cn.Close();
 
-                return Found;
+                //var respuesta = Json( new  {empresa = FoundEmpresa, correo = FoundCorreoElectronico });
+
+                return Json(new { empresa = FoundEmpresa, correo = FoundCorreoElectronico });
             }
         }
     }

@@ -129,15 +129,20 @@ function AddUsuario() {
 function IfExistsEmpresa() {
     $.ajax({
         type: "POST",
-        url: "IfExistEmpresa",
+        url: "IfExistEmpresaCorreo",
         contentType: "application/json;charset=UTF-8",
         dataType: "json",
-        data: JSON.stringify({ Nombre: $("#Empresa").val() }),
+        data: JSON.stringify({ NombreEmpresa: $("#Empresa").val(), CorreoElectronico: $("#CorreoElectronico").val() }),
         success: function (msj) {
-            if (msj) {
-                msjAlerta("alert-danger", "Ya existe una empresa registrada con el nombre: " + $("#Empresa").val(), true);
+            console.log(msj);
+            if (msj.empresa || msj.correo) {
+                var msjEmpresa = msj.empresa == 1 ? "- Ya existe una empresa registrada con el nombre: " + $("#Empresa").val() + "<br>" : "";
+                var msjCorreo = msj.correo == 1 ? "- Ya se encuentra registrado el correo electronico: " + $("#CorreoElectronico").val() : "";
+
+                msjAlerta("alert-danger", msjEmpresa + msjCorreo, true);
             } else {
-                AddUsuario();
+                //AddUsuario();
+                console.log("insertar usuario y empresa");
             };
         },
         error: function (request, error) {
@@ -152,7 +157,7 @@ function msjAlerta(tipo, mensaje, visible) {
 
     if (visible) {
         $msjAlerta.html(mensaje);
-        $msjAlerta.toggleClass(tipo);
+        $msjAlerta.addClass(tipo);
         $msjAlerta.show();
     }
     else {
