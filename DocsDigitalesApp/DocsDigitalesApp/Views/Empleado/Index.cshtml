@@ -1,9 +1,14 @@
-﻿@model IEnumerable<DocsDigitalesApp.Models.EmpleadoViewModel>
+﻿@*@model IEnumerable<DocsDigitalesApp.Models.EmpleadoViewModel>*@
 
 @{
     ViewBag.Title = "Empleados";
     Layout = "~/Views/Shared/_Main.cshtml";
 }
+@*<style type="text/css">
+    .modal-body .form-group {
+        padding-right: 23px;
+    }
+</style>*@
 
 <h2>@ViewBag.Title</h2>
 
@@ -13,66 +18,9 @@
         Crear Nuevo
     </button>
 </p>
-@if (Model.Count() > 0)
-{
-    <div class="table-responsive">
-        <table class="table table-hover">
-            <tr>
-                <th>Nombre
-                </th>
-                <th>RFC
-                </th>
-                <th>Puesto
-                </th>
-                <th>Sucursal
-                </th>
-                @*        <th>
-            @Html.DisplayNameFor(model => model.id_sucursal)
-        </th>*@
-                <th></th>
-            </tr>
 
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Nombre)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.rfc)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.puesto)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.sucursal)
-                    </td>
-                    @*        <td>
-            @Html.DisplayFor(modelItem => item.id_sucursal)
-        </td>*@
-                    <td>
-                        <button class="btn btn-warning btn-xs">
-                            Editar
-                        </button>
-                        | 
-                        <button class="btn btn-info btn-xs">
-                            Detalle
-                        </button>
-                        | 
-                        <button class="btn btn-danger btn-xs">
-                            Eliminar
-                        </button>
-                    </td>
-                </tr>
-            }
-
-        </table>
-    </div>
-}
-else
-{
-    <h2>No hay Empleados registrados.</h2>
-}
+<h2 id="mensaje" style="display: none;">No hay sucursales registradas.</h2>
+<div id="grid_empleados_list" style="display: none;"></div>
 
 <!-- Modal Nuevo Empleado-->
 <div class="modal fade" id="frmNuevoEmpleado" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -109,112 +57,6 @@ else
 </div>
 
 @section scripts{
-    <script type="text/javascript">
-
-        function ValidarRequeridos() {
-
-            var valido = false;
-            var Nombre = $('#frmNombre').val();
-            var RFC = $('#frmRFC').val();
-            var Puesto = $('#frmPuesto').val();
-            var Sucursal = $('#frmSucursal').val();
-
-            if (Nombre == "") {
-                $("#frmNombre").parent().addClass('has-error');
-                $("#errorNombre").show();
-                valido = false;
-            }
-            else {
-                $("#frmNombre").parent().removeClass('has-error');
-                $("#errorNombre").hide();
-                valido = true;
-            };
-
-            if (RFC == "") {
-                $("#frmRFC").parent().addClass('has-error');
-                $("#errorRFC").show();
-                valido = false;
-            }
-            else {
-                $("#frmRFC").parent().removeClass('has-error');
-                $("#errorRFC").hide();
-                valido = true;
-            };
-
-            if (Puesto == "") {
-                $("#frmPuesto").parent().addClass('has-error');
-                $("#errorPuesto").show();
-                valido = false;
-            }
-            else {
-                $("#frmPuesto").parent().removeClass('has-error');
-                $("#errorPuesto").hide();
-                valido = true;
-            };
-
-            if (Sucursal == -1) {
-                $("#frmSucursal").parent().addClass('has-error');
-                $("#errorSucursal").show();
-                valido = false;
-            }
-            else {
-                $("#frmSucursal").parent().removeClass('has-error');
-                $("#errorSucursal").hide();
-                valido = true;
-            };
-
-            return valido;
-        };
-
-        function AddEmpleado() {
-
-            var EmpleadoModel = {
-                id_empleado: -1,
-                Nombre: $('#frmNombre').val(),
-                rfc: $('#frmRFC').val(),
-                puesto: $('#frmPuesto').val(),
-                id_sucursal: $('#frmSucursal').val()
-            };
-
-            $.ajax({
-                type: "POST",
-                url: "Empleado/AddEmpleado",
-                contentType: "application/json;charset=UTF-8",
-                dataType: "json",
-                data: JSON.stringify({ model: EmpleadoModel }),
-                success: function (msj) {
-                    console.log(msj);
-                    if (msj.respuesta != "") {
-                        $("#frmNuevaSucursal").modal("hide");
-                        window.location.reload();
-                        console.log(msj.respuesta);
-                    }
-                    else {
-                        console.log(msj.error);
-                    }
-                },
-                error: function (request, error) {
-                    console.log("error");
-                    alert(request.statusText);
-                }
-            })
-        };
-
-        $(document).ready(function () {
-
-            // Evento click del boton de guardar empleado
-            $('#btnGuardarEmpleado').on('click', function () {
-                if (ValidarRequeridos()) {
-                    AddEmpleado();
-                };
-            });
-
-            // Limpiar el modal dialog
-            $('#frmNuevoEmpleado').on('hidden.bs.modal', function (e) {
-                $('#frmNuevoEmpleado input').val('');
-                $('#frmNuevoEmpleado select').val(-1);
-            })
-        });
-    </script>
+    <script src="/Scripts/empleado.index.js"></script>
 }
 

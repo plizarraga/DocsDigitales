@@ -18,8 +18,6 @@ namespace DocsDigitalesApp.Controllers
         // Listado de sucursales
         public ActionResult Index()
         {
-            //UsuarioViwModel usuario = UsuarioRepo.GetUsuario(User.Identity.Name);
-            //return View(SucursalesRepo.GetSucursales(usuario.Id_Empresa));
             return View();
         }
 

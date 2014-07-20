@@ -66,10 +66,9 @@
                     @if (Request.IsAuthenticated)
                     { 
                         <ul class="nav navbar-nav navbar-right">
+                            <li style="padding-top: 17px;"><span class="glyphicon glyphicon-user"></span></li>
                             <li>
-
                                 <a href="@Url.Action("Logout", "Autentificar")">@Html.Encode(User.Identity.Name) (Salir)</a>
-
                             </li>
                         </ul>
                     }

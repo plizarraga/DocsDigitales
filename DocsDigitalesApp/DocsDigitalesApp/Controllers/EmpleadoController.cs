@@ -21,7 +21,7 @@ namespace DocsDigitalesApp.Controllers
             UsuarioViwModel usuario = UsuarioRepo.GetUsuario(User.Identity.Name);
             ViewBag.frmSucursal = SucursalesRepo.FillSucursales(usuario.Id_Empresa); ;
 
-            return View(EmpleadoRepo.GetEmpleados(usuario.Id_Empresa));
+            return View();
         }
 
         // Insertar el empleado
@@ -37,7 +37,7 @@ namespace DocsDigitalesApp.Controllers
                     var cmd = new MySqlCommand("SP_INS_EMPLEADO", cn);
                     cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
-                    cmd.Parameters.AddWithValue("pi_nombre", model.Nombre);
+                    cmd.Parameters.AddWithValue("pi_nombre", model.Nombre.Trim().ToUpper());
                     cmd.Parameters.AddWithValue("pi_rfc", model.rfc.Trim().ToUpper());
                     cmd.Parameters.AddWithValue("pi_puesto", String.IsNullOrEmpty(model.puesto) ? "" : model.puesto.Trim().ToUpper());
                     cmd.Parameters.AddWithValue("pi_id_sucursal", model.id_sucursal);
@@ -55,6 +55,11 @@ namespace DocsDigitalesApp.Controllers
             }
         }
 
-           
+        [HttpPost]
+        public JsonResult GetEmpleados()
+        {
+            UsuarioViwModel usuario = UsuarioRepo.GetUsuario(User.Identity.Name);
+            return Json(new { Listado = EmpleadoRepo.GetEmpleados(usuario.Id_Empresa) });
+        } 
     }
 }

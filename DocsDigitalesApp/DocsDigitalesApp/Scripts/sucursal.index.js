@@ -20,9 +20,7 @@ $schema = {
 var $dsSucursalesList = new kendo.data.DataSource({
     data: [],
     schema: $schema,
-    aggregate: [
-    //{ field: "Id_Solicitud", aggregate: "count" }
-    ]
+    aggregate: []
 });
 
 function ValidarRequeridos() {
@@ -226,7 +224,11 @@ function Ini_GridSucursaleslist() {
                      },
                      {
                          field: "no_empleados", title: "Total Empleados",
+                         template: "<span class=\"badge \">#=no_empleados#</span>",
                          headerAttributes: {
+                             style: "text-align: center;"
+                         },
+                         attributes: {
                              style: "text-align: center;"
                          }
                      }

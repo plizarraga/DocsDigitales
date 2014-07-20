@@ -383,6 +383,7 @@
     <Content Include="imagenes\logodoc.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\empleado.index.js" />
     <Content Include="Scripts\jquery.numeric.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\create.js" />
