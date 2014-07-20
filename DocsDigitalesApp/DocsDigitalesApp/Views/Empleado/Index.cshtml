@@ -80,9 +80,7 @@
                     <input type="text" class="form-control" placeholder="Puesto">
                 </div>
                 <div class="form-group">
-                    <select class="form-control">
-                        <option>-- SELECCIONAR SUCURSAL --</option>
-                    </select>
+                    @Html.DropDownList("Sucursal", (IEnumerable<SelectListItem>)ViewBag.Sucural, new { @class = "form-control"})
                 </div>
             </div>
             <div class="modal-footer">

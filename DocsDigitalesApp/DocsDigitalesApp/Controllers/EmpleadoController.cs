@@ -14,6 +14,14 @@ namespace DocsDigitalesApp.Controllers
 
         public ActionResult Index()
         {
+            List<SelectListItem> sucursal = new List<SelectListItem>();
+
+            sucursal.Add(new SelectListItem { Text = "-- SELECCIONAR SUCURSAL --", Value = "-1" });
+            sucursal.Add(new SelectListItem { Text = "uno", Value = "unos" });
+            sucursal.Add(new SelectListItem { Text = "dos", Value = "dos" });
+            sucursal.Add(new SelectListItem { Text = "tres", Value = "tres" });
+
+            ViewBag.Sucursal = sucursal;
             UsuarioViwModel usuario = UsuarioRepo.GetUsuario(User.Identity.Name);
             return View(EmpleadoRepo.GetEmpleados(usuario.Id_Empresa));
         }
