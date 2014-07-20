@@ -71,22 +71,137 @@
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Nombre">
+                    <input id="frmNombre" type="text" class="form-control" placeholder="Nombre">
+                    <span id="errorNombre" style="color: red; display: none;">*Ingrese el Nombre</span>
                 </div>
                 <div class="form-group">
-                    <input type="password" class="form-control" placeholder="RFC">
+                    <input id="frmRFC" type="text" class="form-control" placeholder="RFC">
+                    <span id="errorRFC" style="color: red; display: none;">*Ingrese el RFC</span>
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Puesto">
+                    <input id="frmPuesto" type="text" class="form-control" placeholder="Puesto">
+                    <span id="errorPuesto" style="color: red; display: none;">*Ingrese el Puesdo</span>
                 </div>
                 <div class="form-group">
-                    @Html.DropDownList("Sucursal", (IEnumerable<SelectListItem>)ViewBag.Sucural, new { @class = "form-control"})
+                    @Html.DropDownList("frmSucursal", (IEnumerable<SelectListItem>)ViewBag.Sucural, new { @class = "form-control" })
+                    <span id="errorSucursal" style="color: red; display: none;">*Seleccione una Sucursal</span>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Guardar</button>
+                <button id="btnGuardarEmpleado" type="button" class="btn btn-primary">Guardar</button>
             </div>
         </div>
     </div>
 </div>
+
+@section scripts{
+    <script type="text/javascript">
+
+        function ValidarRequeridos() {
+
+            var valido = false;
+            var Nombre = $('#frmNombre').val();
+            var RFC = $('#frmRFC').val();
+            var Puesto = $('#frmPuesto').val();
+            var Sucursal = $('#frmSucursal').val();
+
+            if (Nombre == "") {
+                $("#frmNombre").parent().addClass('has-error');
+                $("#errorNombre").show();
+                valido = false;
+            }
+            else {
+                $("#frmNombre").parent().removeClass('has-error');
+                $("#errorNombre").hide();
+                valido = true;
+            };
+
+            if (RFC == "") {
+                $("#frmRFC").parent().addClass('has-error');
+                $("#errorRFC").show();
+                valido = false;
+            }
+            else {
+                $("#frmRFC").parent().removeClass('has-error');
+                $("#errorRFC").hide();
+                valido = true;
+            };
+
+            if (Puesto == "") {
+                $("#frmPuesto").parent().addClass('has-error');
+                $("#errorPuesto").show();
+                valido = false;
+            }
+            else {
+                $("#frmPuesto").parent().removeClass('has-error');
+                $("#errorPuesto").hide();
+                valido = true;
+            };
+
+            if (Sucursal == -1) {
+                $("#frmSucursal").parent().addClass('has-error');
+                $("#errorSucursal").show();
+                valido = false;
+            }
+            else {
+                $("#frmSucursal").parent().removeClass('has-error');
+                $("#errorSucursal").hide();
+                valido = true;
+            };
+
+            return valido;
+        };
+
+        function AddEmpleado() {
+
+            var EmpleadoModel = {
+                id_empleado: -1,
+                Nombre: $('#frmNombre').val(),
+                rfc: $('#frmRFC').val(),
+                puesto: $('#frmPuesto').val(),
+                id_sucursal: $('#frmSucursal').val()
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "Empleado/AddEmpleado",
+                contentType: "application/json;charset=UTF-8",
+                dataType: "json",
+                data: JSON.stringify({ model: EmpleadoModel }),
+                success: function (msj) {
+                    console.log(msj);
+                    if (msj.respuesta != "") {
+                        $("#frmNuevaSucursal").modal("hide");
+                        window.location.reload();
+                        console.log(msj.respuesta);
+                    }
+                    else {
+                        console.log(msj.error);
+                    }
+                },
+                error: function (request, error) {
+                    console.log("error");
+                    alert(request.statusText);
+                }
+            })
+        };
+
+        $(document).ready(function () {
+
+            // Evento click del boton de guardar empleado
+            $('#btnGuardarEmpleado').on('click', function () {
+                if (ValidarRequeridos()) {
+                    AddEmpleado();
+                };
+            });
+
+            // Limpiar el modal dialog
+            $('#frmNuevoEmpleado').on('hidden.bs.modal', function (e) {
+                $('#frmNuevoEmpleado input').val('');
+                $('#frmNuevoEmpleado select').val(-1);           
+            })
+        });
+    </script>
+}
+

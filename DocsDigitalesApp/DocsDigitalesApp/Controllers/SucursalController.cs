@@ -22,7 +22,7 @@ namespace DocsDigitalesApp.Controllers
             return View(SucursalesRepo.GetSucursales(usuario.Id_Empresa));
         }
 
-        // Insertar el usuario y la empresa.
+        // Insertar la sucursal en la base de datos
         [HttpPost]
         public JsonResult AddSucursal(SucursalModel model)
         {

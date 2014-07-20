@@ -244,6 +244,11 @@
                 };
             });
 
+            // Limpiar el modal dialog
+            $('#frmNuevaSucursal').on('hidden.bs.modal', function (e) {
+                $('#frmNuevaSucursal input').val('');
+            })
+
         });
     </script>
 }
