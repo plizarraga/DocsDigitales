@@ -18,8 +18,9 @@ namespace DocsDigitalesApp.Controllers
         // Listado de sucursales
         public ActionResult Index()
         {
-            UsuarioViwModel usuario = UsuarioRepo.GetUsuario(User.Identity.Name);
-            return View(SucursalesRepo.GetSucursales(usuario.Id_Empresa));
+            //UsuarioViwModel usuario = UsuarioRepo.GetUsuario(User.Identity.Name);
+            //return View(SucursalesRepo.GetSucursales(usuario.Id_Empresa));
+            return View();
         }
 
         // Insertar la sucursal en la base de datos
