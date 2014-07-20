@@ -15,6 +15,7 @@ Herramientas de Desarrollo:
 	* jQuery 1.9*
 	* Bootstrap 3.2
 	* Responsive Desing
+	* Kendo UI Grid
 
 ##Base de Datos
 	* MySQL 5.5		
