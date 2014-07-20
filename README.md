@@ -19,3 +19,8 @@ Herramientas de Desarrollo:
 
 ##Base de Datos
 	* MySQL 5.5		
+
+##ToDo
+	* Modificar empleado
+	* Modificar sucursal
+	* Al agregar una nueva sucursal poder asignarle empleados
