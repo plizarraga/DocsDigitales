@@ -5,6 +5,7 @@ using System.Configuration;
 using System.Data;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace DocsDigitalesApp.Models
 {
@@ -53,6 +54,21 @@ namespace DocsDigitalesApp.Models
 
                 return listSucursales;
             }
+        }
+
+        // LLena los dropdowlist de sucursales
+        public static List<SelectListItem> FillSucursales(int id_empresa)
+        {
+            IEnumerable<SucursalViewModel> listSucursales = SucursalesRepo.GetSucursales(id_empresa);
+            List<SelectListItem> sucursal = new List<SelectListItem>();
+            sucursal.Add(new SelectListItem { Text = "-- SELECCIONAR SUCURSAL --", Value = "-1" });
+
+            foreach (SucursalViewModel x in listSucursales)
+            {
+                sucursal.Add(new SelectListItem { Text = x.nombre.ToString(), Value = x.id_sucursal.ToString() });
+            };
+
+            return sucursal;
         }
     }
 }
