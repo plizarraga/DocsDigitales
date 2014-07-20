@@ -79,10 +79,7 @@
                         <div class="form-group">
                             <button id="btnCrearUsuario" name="btnCrear" type="button" class="btn btn-primary btn-block">Crear Usuario</button>
                         </div>
-                        <div class="modal-footer">
-                            @Html.ActionLink("Regresar", "Login", null, htmlAttributes: new { @class = "btn btn-default btn-sm", @role = "button" })
-                        </div>
-                        
+                     
                         if (TempData["Error"] != null)
                         {
                         <label style="color: red;">@TempData["Error"]</label> 
@@ -90,7 +87,9 @@
                     }
                 </div>
                 <div class="modal-footer">
-                    <div class="col-md-12"></div>
+                    <div class="col-md-12">
+                        @Html.ActionLink("Regresar", "Login", null, htmlAttributes: new { @class = "btn btn-default btn-sm", @role = "button" })
+                    </div>
                 </div>
             </div>
         </div>

@@ -42,6 +42,7 @@
             </th>
             <th>Total Empleados
             </th>
+            @*<th></th>*@
         </tr>
 
         @foreach (var item in Model)
@@ -81,9 +82,9 @@
                     @Html.DisplayFor(modelItem => item.no_empleados)
                 </td>
                 @*                <td>
-                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    @Html.ActionLink("Editar", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Detalle", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Eliminar", "Delete", new { /* id=item.PrimaryKey */ })
                 </td>*@
             </tr>
         }
@@ -101,13 +102,18 @@
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <input id="" type="text" class="form-control" placeholder="Nombre">
+                    <div id="msjAlerta" class="form-group" style="display: none;">
+                    </div>
                 </div>
                 <div class="form-group">
-                    <input id="" type="text" class="form-control" placeholder="Calle">
+                    <input id="frmNombre" type="text" class="form-control" placeholder="Nombre">
+                    <span id="errorNombre" style="color: red; display: none;">*Ingrese el Nombre</span>
                 </div>
                 <div class="form-group">
-                    <input id="" type="text" class="form-control" placeholder="Colonia">
+                    <input id="frmCalle" type="text" class="form-control" placeholder="Calle">
+                </div>
+                <div class="form-group">
+                    <input id="frmColonia" type="text" class="form-control" placeholder="Colonia">
                 </div>
                 <div class="form-group">
                     <input id="frmNumExt" type="text" class="form-control" placeholder="Número Exterior">
@@ -119,15 +125,15 @@
                     <input id="frmCP" type="text" class="form-control" placeholder="Código Postal">
                 </div>
                 <div class="form-group">
-                    <input id="" type="text" class="form-control" placeholder="Ciudad">
+                    <input id="frmCiudad" type="text" class="form-control" placeholder="Ciudad">
                 </div>
                 <div class="form-group">
-                    <input type="text" class="form-control " placeholder="País">
+                    <input id="frmPais" type="text" class="form-control " placeholder="País">
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-                <button type="button" class="btn btn-primary">Guardar</button>
+                <button id="btnGuardarSucursal" type="button" class="btn btn-primary">Guardar</button>
             </div>
         </div>
     </div>
@@ -137,9 +143,106 @@
     <script src="/Scripts/jquery.numeric.js"></script>
 
     <script type="text/javascript">
+
+        function ValidarRequeridos() {
+
+            var valido = false;
+            var Nombre = $('#frmNombre').val();
+            var Calle = $('#frmCalle').val();
+            var Colonia = $('#frmColonia').val();
+            var NumExt = $('#frmNumExt').val();
+            var NumInt = $('#frmNumInt').val();
+            var CP = $('#frmCP').val();
+            var Ciudad = $('#frmCiudad').val();
+            var Pais = $('#frmPais').val();
+
+            if (Nombre == "") {
+                $("#frmNombre").parent().addClass('has-error');
+                $("#errorNombre").show();
+                valido = false;
+            }
+            else {
+                $("#frmNombre").parent().removeClass('has-error');
+                $("#errorNombre").hide();
+                valido = true;
+            };
+
+            return valido;
+        };
+
+        // Si la sucursal no se encuentra registrada procede a insertar la nueva sucursal.
+        function IfExistSucursal() {
+            $.ajax({
+                type: "POST",
+                url: "Sucursal/IfExistSucursal",
+                contentType: "application/json;charset=UTF-8",
+                dataType: "json",
+                data: JSON.stringify({ NombreSucursal: $("#frmNombre").val() }),
+                success: function (msj) {
+                    console.log(msj);
+                    if (msj.sucursal) {
+                        var msj = "- Ya existe una Sucurasal registrada con el nombre: " + $("#frmNombre").val();
+                        $('#msjAlerta').html('<div class="alert alert-danger" role="alert">' + msj + '</div>');
+                        $('#msjAlerta').show();
+                    } else {
+                        AddSucursal();
+                    };
+                },
+                error: function (request, error) {
+                    console.log("error");
+                    alert(request.statusText);
+                }
+            })
+        };
+
+        function AddSucursal() {
+            var SucursalModel = {
+                id_sucursal: -1,
+                id_empresa: -1,
+                nombre: $('#frmNombre').val(),
+                calle: $('#frmCalle').val(),
+                colonia: $('#frmColonia').val(),
+                num_ext: $('#frmNumExt').val(),
+                num_int: $('#frmNumInt').val(),
+                codigo_postal: $('#frmCP').val(),
+                ciudad: $('#frmCiudad').val(),
+                pais: $('#frmPais').val()
+            };
+
+            $.ajax({
+                type: "POST",
+                url: "Sucursal/AddSucursal",
+                contentType: "application/json;charset=UTF-8",
+                dataType: "json",
+                data: JSON.stringify({ model: SucursalModel }),
+                success: function (msj) {
+                    console.log(msj);
+                    if (msj.respuesta != "") {
+                        $("#frmNuevaSucursal").modal("hide");
+                        window.location.reload();
+                        console.log(msj.respuesta);
+                    }
+                    else {
+                        console.log(msj.error);
+                    }
+                },
+                error: function (request, error) {
+                    console.log("error");
+                    alert(request.statusText);
+                }
+            })
+        };
+
         $(document).ready(function () {
-            
+
+            //Inicializar controles númericos
             $('#frmNumExt, #frmNumInt, #frmCP').numeric({ decimal: false, negative: false });
+
+            $('#btnGuardarSucursal').on('click', function () {
+                if (ValidarRequeridos()) {
+                    IfExistSucursal();
+                };
+            });
 
         });
     </script>

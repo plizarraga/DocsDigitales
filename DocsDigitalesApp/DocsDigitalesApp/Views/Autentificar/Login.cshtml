@@ -30,6 +30,7 @@
                     <h1 class="text-center">Login</h1>
                 </div>
                 <div class="modal-body">
+
                     @using (Html.BeginForm("Login", "Autentificar", FormMethod.Post, htmlAttributes: new { @id = "FormLogin", @class = "form col-md-12 center-block" }))
                     { 
                         <div class="form-group">
@@ -47,20 +48,19 @@
                         
                         <div class="form-group">
                             <button id="btnIniciarSesion" type="submit" class="btn btn-primary btn-lg btn-block">Iniciar Sesión</button>
-
                         </div>
-                        <div class="modal-footer">
-                            <div class="col-md-12"><span class="pull-right">@Html.ActionLink("Crear Usuario", "Create")</span></div>
-                        </div>
-                        
+                             
                         if (TempData["Error"] != null)
                         {
-                        <label style="color: red;">@TempData["Error"]</label> 
+                        <label style="color: red;">@TempData["Error"]</label>
                         }
+
                     }
                 </div>
                 <div class="modal-footer">
-                    <div class="col-md-12"></div>
+                    <div class="col-md-12">
+                        @Html.ActionLink("Crear Usuario", "Create")
+                    </div>
                 </div>
             </div>
         </div>
