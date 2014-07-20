@@ -18,87 +18,88 @@
 @if (Model.Count() > 0)
 {
     <div class="table-responsive">
-    <table class="table table-hover">
-        <tr>
+        <table class="table table-hover">
+            <tr>
 
-            @*            <th>
+                @*            <th>
                 @Html.DisplayNameFor(model => model.id_sucursal)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.id_empresa)
             </th>*@
-            <th>Nombre
-            </th>
-            <th>Calle
-            </th>
-            <th>Colonia
-            </th>
-            <th>Num. Ext.
-            </th>
-            <th>Num. Int.
-            </th>
-            <th>CP
-            </th>
-            <th>Ciudad
-            </th>
-            <th>Pais
-            </th>
-            <th>Total Empleados
-            </th>
-            @*<th></th>*@
-        </tr>
+                <th>Nombre
+                </th>
+                <th>Calle
+                </th>
+                <th>Colonia
+                </th>
+                <th>Num. Ext.
+                </th>
+                <th>Num. Int.
+                </th>
+                <th>CP
+                </th>
+                <th>Ciudad
+                </th>
+                <th>Pais
+                </th>
+                <th>Total Empleados
+                </th>
+                @*<th></th>*@
+            </tr>
 
-        @foreach (var item in Model)
-        {
-            <tr>
-                @*                <td>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    @*                <td>
                     @Html.DisplayFor(modelItem => item.id_sucursal)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.id_empresa)
                 </td>*@
-                <td>
-                    @Html.DisplayFor(modelItem => item.nombre)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.calle)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.colonia)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.num_ext)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.num_int)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.codigo_postal)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ciudad)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.pais)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.no_empleados)
-                </td>
-                @*                <td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.calle)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.colonia)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.num_ext)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.num_int)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.codigo_postal)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ciudad)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.pais)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.no_empleados)
+                    </td>
+                    @*                <td>
                     @Html.ActionLink("Editar", "Edit", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Detalle", "Details", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Eliminar", "Delete", new { /* id=item.PrimaryKey */ })
                 </td>*@
-            </tr>
-        }
-    </table>
-</div>
+                </tr>
+            }
+        </table>
+    </div>
 }
-else 
+else
 {
-<h2>No hay Sucursales registradas.</h2>
+    <h2>No hay Sucursales registradas.</h2>
 }
 
+<div id="grid_sucursales_list"  />
 
 
 <!-- Modal Nueva Sucursal-->
@@ -152,6 +153,32 @@ else
     <script src="/Scripts/jquery.numeric.js"></script>
 
     <script type="text/javascript">
+        var $gird_Sucursales, $schema;
+
+        $schema = {
+            model: {
+                id: "id_sucursal",
+                fields: {
+                    nombre: { type: "string" },
+                    calle: { type: "string" },
+                    colonia: { type: "string" },
+                    num_ext: { type: "string" },
+                    num_int: { type: "string" },
+                    codigo_postal: { type: "string" },
+                    ciudad: { type: "string" },
+                    pais: { type: "string" },
+                    no_empleados: { type: "sum" }
+                }
+            }
+        };
+
+        var $dsSucursalesList = new kendo.data.DataSource({
+            data: [],
+            schema: $schema,
+            aggregate: [
+            //{ field: "Id_Solicitud", aggregate: "count" }
+            ]
+        });
 
         function ValidarRequeridos() {
 
@@ -242,8 +269,131 @@ else
             })
         };
 
-        $(document).ready(function () {
+        function GetSucursales() {
+            $.ajax({
+                type: "POST",
+                url: "Sucursal/GetSucursales",
+                contentType: "application/json;charset=UTF-8",
+                dataType: "json",
+                success: function (msg) {
+                    //var response = JSON.parse(msg);
 
+                    if (msg.Error != '') {
+                        // Ocurrio algun error
+                        alert(response.Error);
+                    }
+                    else {
+                        //Cargamos el listado de solicitudes
+                        $dsSucursalesList = new kendo.data.DataSource({
+                            data: msg.Listado,
+                            schema: $schema,
+                            aggregate: [
+                            //{ field: "Id_Solicitud", aggregate: "count" }
+                            ]
+                        });
+
+                        // Agregando el listado de ordenes al Source del Grid
+                        $gird_Sucursales.data('kendoGrid').setDataSource($dsSucursalesList);
+
+                    }; //else
+                },       //success END                
+                error: function (request, error) {
+                    alert(request.statusText);
+                }
+            }); //$.ajax
+        }; // GetSsucursales()
+
+        //Inicializar el grid sucursales List de KendoUI
+        function Ini_GridSucursaleslist() {
+            $gird_Sucursales = $("#grid_sucursales_list").kendoGrid({
+                height: 400,
+                scrollable: true,
+                sortable: true,
+                filterable: {
+                    extra: false,
+                    messages: {
+                        filter: "Filtrar",
+                        clear: "Limpiar"
+                    }
+                },
+                groupable: true,
+                selectable: "row",
+                resizable: true,
+                dataSource: $dsSucursalesList,
+                columns: [
+                           {
+                               field: "id_sucursal", title: "id_sucursal", filterable: true,
+                               headerAttributes: {
+                                   style: "text-align: center;"
+                               }
+                           },
+                           {
+                               field: "nombre", title: "Sucursal", width: "20%",
+                               headerAttributes: {
+                                   style: "text-align: center;"
+                               },
+                               attributes: {
+                                   style: "text-align: left;"
+                               }
+                           },
+                           {
+                               field: "calle", title: "Calle",
+                               headerAttributes: {
+                                   style: "text-align: center;"
+                               }
+                           },
+                           {
+                               field: "colonia", title: "Colonia",
+                               headerAttributes: {
+                                   style: "text-align: center;"
+                               },
+                               attributes: {
+                                   style: "text-align: left;"
+                               }
+                           },
+                            {
+                                field: "num_ext", title: "Num. Ext.",
+                                headerAttributes: {
+                                    style: "text-align: center;"
+                                }
+                            },
+                             {
+                                 field: "num_int", title: "Num. Int.",
+                                 headerAttributes: {
+                                     style: "text-align: left;"
+                                 }
+                             },
+                            {
+                                field: "codigo_postal", title: "CP",
+                                headerAttributes: {
+                                    style: "text-align: left;"
+                                }
+                            },
+                             {
+                                 field: "ciudad", title: "Ciudad",
+                                 headerAttributes: {
+                                     style: "text-align: center;"
+                                 }
+                             },
+                             {
+                                 field: "pais", title: "Pais",
+                                 headerAttributes: {
+                                     style: "text-align: center;"
+                                 }
+                             },
+                             {
+                                 field: "no_empleados", title: "Total Empleados",
+                                 headerAttributes: {
+                                     style: "text-align: center;"
+                                 }
+                             }
+                ]
+            });
+
+            $("#grid_sucursales_list").data("kendoGrid").hideColumn(0);
+        }; //Ini_GridSucursaleslist()
+
+        $(document).ready(function () {
             //Inicializar controles númericos
             $('#frmNumExt, #frmNumInt, #frmCP').numeric({ decimal: false, negative: false });
 
@@ -258,6 +408,8 @@ else
                 $('#frmNuevaSucursal input').val('');
             })
 
+            Ini_GridSucursaleslist();
+            GetSucursales();
         });
     </script>
 }

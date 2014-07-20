@@ -65,7 +65,7 @@ namespace DocsDigitalesApp.Controllers
             using (MySqlConnection cn = new MySqlConnection(_conString))
             {
                 UsuarioViwModel usuario = UsuarioRepo.GetUsuario(User.Identity.Name);
-                
+
                 // Verificar si existe la empresa
                 var cmd = new MySqlCommand("SP_SEL_SUCURSAL_POR_NOMBRE", cn);
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
@@ -78,6 +78,13 @@ namespace DocsDigitalesApp.Controllers
 
                 return Json(new { sucursal = FoundSucursal });
             }
+        }
+
+        [HttpPost]
+        public JsonResult GetSucursales()
+        {
+            UsuarioViwModel usuario = UsuarioRepo.GetUsuario(User.Identity.Name);
+            return Json(new { Listado = SucursalesRepo.GetSucursales(usuario.Id_Empresa), Error = "" });
         }
     }
 }
