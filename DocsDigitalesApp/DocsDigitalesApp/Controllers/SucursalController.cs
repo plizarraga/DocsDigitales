@@ -84,7 +84,7 @@ namespace DocsDigitalesApp.Controllers
         public JsonResult GetSucursales()
         {
             UsuarioViwModel usuario = UsuarioRepo.GetUsuario(User.Identity.Name);
-            return Json(new { Listado = SucursalesRepo.GetSucursales(usuario.Id_Empresa), Error = "" });
+            return Json(new { Listado = SucursalesRepo.GetSucursales(usuario.Id_Empresa)});
         }
     }
 }
