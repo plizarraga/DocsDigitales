@@ -64,10 +64,13 @@ namespace DocsDigitalesApp.Controllers
         {
             using (MySqlConnection cn = new MySqlConnection(_conString))
             {
+                UsuarioViwModel usuario = UsuarioRepo.GetUsuario(User.Identity.Name);
+                
                 // Verificar si existe la empresa
                 var cmd = new MySqlCommand("SP_SEL_SUCURSAL_POR_NOMBRE", cn);
                 cmd.CommandType = System.Data.CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("pi_nombre", NombreSucursal);
+                cmd.Parameters.AddWithValue("pi_id_empresa", usuario.Id_Empresa);
                 cn.Open();
 
                 int FoundSucursal = Convert.ToInt32(cmd.ExecuteScalar());

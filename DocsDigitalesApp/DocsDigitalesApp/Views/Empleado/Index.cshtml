@@ -14,6 +14,8 @@
     </button>
     @* @Html.ActionLink("Crear Nuevo", "Create", null, htmlAttributes: new { @class = "btn btn-primary btn-sm", @role = "button" })*@
 </p>
+@if (Model.Count() > 0)
+{
 <div class="table-responsive">
     <table class="table table-hover">
         <tr>
@@ -59,7 +61,11 @@
 
     </table>
 </div>
-
+}
+else 
+{
+<h2>No hay Empleados registrados.</h2>
+}
 
 <!-- Modal Nuevo Empleado-->
 <div class="modal fade" id="frmNuevoEmpleado" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

@@ -14,7 +14,10 @@
     </button>
     @*@Html.ActionLink("Crear Nueva", "Create", null, htmlAttributes: new { @class = "btn btn-primary btn-sm", @role = "button" })*@
 </p>
-<div class="table-responsive">
+
+@if (Model.Count() > 0)
+{
+    <div class="table-responsive">
     <table class="table table-hover">
         <tr>
 
@@ -88,9 +91,15 @@
                 </td>*@
             </tr>
         }
-
     </table>
 </div>
+}
+else 
+{
+<h2>No hay Sucursales registradas.</h2>
+}
+
+
 
 <!-- Modal Nueva Sucursal-->
 <div class="modal fade" id="frmNuevaSucursal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
