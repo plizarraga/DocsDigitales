@@ -141,7 +141,7 @@ function Ini_GridEmpleadoslist() {
                        }
                    },
                    {
-                       field: "rf", title: "RFC",
+                       field: "rfc", title: "RFC",
                        headerAttributes: {
                            style: "text-align: center;"
                        }
